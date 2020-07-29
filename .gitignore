@@ -1,2 +1,5 @@
 tlgrmbotapikey
 .venv/
+dbinfo.py
+.vscode/
+__pycache__/
