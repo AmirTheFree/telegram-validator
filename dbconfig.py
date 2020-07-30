@@ -10,10 +10,15 @@ numbers = Table(
     'numbers',meta,
     Column('id',Integer,primary_key=True),
     Column('number',String(14),nullable=False,unique=True),
-    Column('has_telegram',Boolean,nullable=False,default=False),
+    Column('user_id',Integer,nullable=True,default=None),
     Column('username',String(32),nullable=True)
 )
 
 meta.create_all(engine)
 
 dbconnection = engine.connect()
+
+# To add a new number uncomment lines below and run current file once
+
+# new_number = numbers.insert().values(number = 'phone number here')
+# dbconnection.execute(new_number)

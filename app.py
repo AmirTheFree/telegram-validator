@@ -15,8 +15,19 @@ t = Telegram(
     )
 t.login()
 
-def new_message_handler(update):
-    print('New message!')
+data = dbconnection.execute(numbers.select()).fetchall()
+for d in data:
+	result = t.call_method('importContacts',params = {'contacts':[{'phone_number':d[1]}]})
+	result.wait()
+	if result.update['user_ids'][0] != 0:
+		dbconnection.execute(numbers.update().values(user_id = result.update['user_ids'][0]).where(numbers.c.number == d[1]))
 
-t.add_message_handler(new_message_handler)
-t.idle()
+data = dbconnection.execute(numbers.select()).fetchall()
+for d in data:
+	if d[2] != None:
+		result = t.call_method('getUser',params = {'user_id' : d[2]})
+		result.wait()
+		if result.update['username']:
+			dbconnection.execute(numbers.update().values(username = result.update['username']).where(numbers.c.user_id == d[2]))
+
+
