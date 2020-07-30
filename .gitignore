@@ -3,3 +3,5 @@ tlgrmbotapikey
 dbinfo.py
 .vscode/
 __pycache__/
+tinfo.py
+tlgrminfo/
